@@ -1,8 +1,8 @@
-## Pleh
+# Pleh - AI-powered Shell Assistant
 
-It's just help backwards.
+Pleh is just help backwards.
 
-AI shell assistant. It's for when you want to do something in your shell and can't recall or don't know how to do it. 
+It's for when you want to do something in your shell and can't recall or don't know how to do it. 
 
 Pleh is faster than just Googling it.
 
