@@ -13,6 +13,8 @@ TODO
 ## Usage
 
 `pleh Find me all text files in this directory`
-`pleh Grep this log file and output the count of all timestamps before <some date>
+
+`pleh Grep this log file and output the count of all timestamps before <some date>`
+
 etc.
 
