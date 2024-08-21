@@ -59,12 +59,15 @@ func main() {
 }
 
 func getOpenAIResponse(apiKey, command string) (string, error) {
+    // Add an instruction to the prompt to ensure the response is a shell command
+    prompt := fmt.Sprintf("Please respond with a valid shell command to the following query:\n\n%s", command)
+
     requestPayload := OpenAIRequest{
         Model: "gpt-3.5-turbo",
         Messages: []Message{
             {
                 Role:    "user",
-                Content: command,
+                Content: prompt,
             },
         },
     }
