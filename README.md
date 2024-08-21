@@ -1,8 +1,8 @@
-# Pleh - AI-powered Shell Assistant
+<div align="center"><h1>Pleh: AI-Powered Shell Assistant</h1></div>
 
-Pleh is just help backwards.
+<div align="center"><pre>"help".reverse() == "pleh"</pre></div>
 
-It's for when you want to do something in your shell and can't recall or don't know how to do it. 
+When you want to do something in your shell and can't recall, or don't know, how to do it. 
 
 Pleh is faster than just Googling it.
 
