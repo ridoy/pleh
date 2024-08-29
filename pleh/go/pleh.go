@@ -9,6 +9,8 @@ import (
     "net/http"
     "os"
     "strings"
+    "bufio"
+    "os/exec"
 
     "github.com/joho/godotenv"
 )
@@ -43,18 +45,28 @@ func main() {
     }
 
     if len(os.Args) < 2 || os.Args[0] != "pleh" {
-	log.Printf(os.Args[0])
-	log.Printf(os.Args[1])
         fmt.Println("Usage: pleh <your query>")
         os.Exit(1)
     }
 
     command := strings.Join(os.Args[2:], " ")
-    response, err := getOpenAIResponse(apiKey, command)
-    if err != nil {
-        log.Printf("Error getting response from OpenAI: %v\n", err)
-    } else {
-        fmt.Println(response)
+    for {
+        response, err := getOpenAIResponse(apiKey, command)
+        if err != nil {
+            log.Printf("Error getting response from OpenAI: %v\n", err)
+        } else {
+            fmt.Println(response)
+            fmt.Print("Press [Enter] to use this command now, or [0] to retry")
+            scanner := bufio.NewScanner(os.Stdin)
+            scanner.Scan()
+            input := scanner.Text()
+            if input == "" {
+                executeCommand(response)
+                break
+            } else if input == "0" {
+                continue
+            }
+        }
     }
 }
 
@@ -110,3 +122,15 @@ func getOpenAIResponse(apiKey, command string) (string, error) {
     return openAIResponse.Choices[0].Message.Content, nil
 }
 
+
+func executeCommand(command string) {
+    args := strings.Fields(command)
+    cmd := exec.Command(args[0], args[1:]...)
+
+    cmd.Stdout = os.Stdout
+    cmd.Stderr = os.Stderr
+    err := cmd.Run()
+    if err != nil {
+        log.Printf("Error executing command: %v\n", err)
+    }
+}
