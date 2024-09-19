@@ -3,3 +3,5 @@ llama_rs/
 
 .env
 venv/
+
+.DS_Store
