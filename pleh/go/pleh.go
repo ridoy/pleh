@@ -2,10 +2,9 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"os/exec"
-	"strings"
+	"golang.design/x/clipboard"
 )
 
 const llamaModelPath = ""
@@ -14,6 +13,7 @@ func main() {
 		fmt.Println("Usage: pleh <query>")
 		os.Exit(1)
 	}
+	initClipboard()
 	query := strings.Join(os.Args[1:], " ")
 	model, err := llama.LoadModel(llamaModelPath)
 	if err != nil {
@@ -25,13 +25,16 @@ func main() {
 		os.Exit(1)
 	}
 	fmt.Printf("Generated command: %s\n", command)
-	fmt.Print("Press [Enter] to run this command, or [0] to exit.")
+	fmt.Println("Press [Enter] to run this command, [0] to copy to clipboard, or [1] to exit.")
 	var response string
 	fmt.Scanln(&response)
 	if response == "" {
 		executeCommand(command)
 	} else if response == "0" {
-		return
+		clipboard.Write(clipboard.FmtText, []byte(command))
+		fmt.Println("Command copied to clipboard.")
+	} else if response == "1" {
+		return 
 	}
 }
 
@@ -53,3 +56,9 @@ func executeCommand(command string) {
 	fmt.Println(string(output))
 }
 
+func initClipboard() {
+	err := clipboard.Init()
+	if err != nil {
+		panic(err)
+	}
+}
