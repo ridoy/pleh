@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"strings"
 	"golang.design/x/clipboard"
 )
 
-const llamaModelPath = ""
 func main() {
 	if len(os.Args) < 2 {
 		fmt.Println("Usage: pleh <query>")
@@ -15,11 +15,7 @@ func main() {
 	}
 	initClipboard()
 	query := strings.Join(os.Args[1:], " ")
-	model, err := llama.LoadModel(llamaModelPath)
-	if err != nil {
-		log.Fatalf("Error loading LLaMA model: %v", err)
-	}
-	command, err := generateShellCommand(model, query)
+	command, err := generateShellCommand(query)
 	if err != nil {
 		fmt.Printf("Error generating shell command: %v\n", err)
 		os.Exit(1)
@@ -38,13 +34,14 @@ func main() {
 	}
 }
 
-func generateShellCommand(model *llama.Model, query string) (string, error) {
+func generateShellCommand(query string) (string, error) {
 	prompt := fmt.Sprintf("Generate a shell command that accomplishes the following: %s. Output just the command with no explanation.", query)
-	response, err := model.Predict(prompt)
+	cmd := exec.Command("../../llama-cli", "-m", "../../model/llama-2-7b.Q8_0.gguf", "-p", prompt, "--log-disable")
+	output, err := cmd.CombinedOutput()
 	if err != nil {
 		return "", err
 	}
-	return strings.TrimSpace(response), nil
+	return strings.TrimSpace(string(output)), nil
 }
 
 func executeCommand(command string) {

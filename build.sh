@@ -8,7 +8,6 @@ echo "Making build directories..."
 mkdir -p "$PROJECT_ROOT/bin"
 mkdir -p "$OUTPUT_DIR/windows" "$OUTPUT_DIR/darwin_amd64" "$OUTPUT_DIR/darwin_arm64" "$OUTPUT_DIR/linux"
 
-
 echo "Building for Windows..."
 GOOS=windows GOARCH=amd64 go build -o "$OUTPUT_DIR/windows/pleh.exe" "$GO_PROGRAM"
 
