@@ -36,7 +36,7 @@ func main() {
 
 func generateShellCommand(query string) (string, error) {
 	prompt := fmt.Sprintf("Generate a shell command that accomplishes the following: %s. Output just the command with no explanation.", query)
-	cmd := exec.Command("../../llama-cli", "-m", "../../model/llama-2-7b.Q8_0.gguf", "-p", prompt, "--log-disable")
+	cmd := exec.Command("../../llama-cli", "-m", "../../model/openhermes-2.5-mistral-7b.Q8_0.gguf", "-p", prompt, "--log-disable")
 	output, err := cmd.CombinedOutput()
 	if err != nil {
 		return "", err

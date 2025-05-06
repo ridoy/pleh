@@ -2,18 +2,16 @@
 
 <div align="center"><pre>"help".reverse() == "pleh"</pre></div>
 
-When you want to do something in your shell and can't recall, or don't know, how to do it. 
+Pleh aims to be a helpful AI assistant that lives in your shell.
 
-Pleh is faster than just Googling it.
+Usage: `pleh <your query>`
 
-## Installation
+Pleh runs completely locally. It isn't live yet, but stay tuned.
 
-TODO
+Here's what remains to be done:
 
-## Usage
+- [ ] Finetune model on shell commands
+- [ ] Implement RAG using man pages for better queries
+- [ ] Evaluation CI in a virtual environment wherein a stronger model evaluates pleh's ability to do things.
+- [ ] Compatibility with tools available in user's env `compgen -c`
 
-`pleh Find me all text files in this directory`
-
-`pleh Grep this log file and output the count of all timestamps before <some date>`
-
-etc.
